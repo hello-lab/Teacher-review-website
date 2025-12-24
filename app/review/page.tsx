@@ -99,11 +99,11 @@ submitPost(formData)
           toast.error(JSON.parse(error.message)[0].message)}
         catch{
           toast.dismiss(loading);
-        toast.error("Error submitting review: " + (error instanceof Error ? error.message : "Unknown error"));
-        if(error.message=='Unauthorized' ){
+        toast.error("UnAuthorized Redirecting to login...");
+        setTimeout(() => {
           router.push("/login");
-        }
-        }
+        
+        }, 1000);}
         return;
     });
   }
