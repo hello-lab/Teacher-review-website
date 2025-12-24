@@ -134,96 +134,10 @@ const handleSubmit1 = async (e: React.FormEvent) => {
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
+      
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="grid gap-6">
-            {error && (
-              <div className="text-sm text-red-600 text-center">
-                {error}
-              </div>
-            )}
-
-            {!isLogin && (
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            )}
-
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-                minLength={8}
-                disabled={isLoading}
-              />
-              {!isLogin && (
-                <p className="text-xs text-tertiary">
-                  Password must be at least 8 characters long
-                </p>
-              )}
-            </div>
-
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Spinner size="sm" className="mr-2" />
-                  {isLogin ? "Signing in..." : "Creating account..."}
-                </>
-              ) : (
-                buttonText
-              )}
-            </Button>
-
-            <div className="text-center text-sm">
-              {linkText}{" "}
-              <Link href={linkHref} className="underline underline-offset-4">
-                {linkLabel}
-              </Link>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Or continue with</CardTitle>
+          <CardTitle className="text-xl">Please SignUp/In using VIT Google Account</CardTitle>
         </CardHeader>
         <CardContent>
           <Button
@@ -244,10 +158,7 @@ const handleSubmit1 = async (e: React.FormEvent) => {
           </Button>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-tertiary [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
-      </div>
+      
     </div>
   )
 }

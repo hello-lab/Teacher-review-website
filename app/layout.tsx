@@ -1,9 +1,11 @@
+
 import "./globals.css";
 import { inter } from "./fonts";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "react-hot-toast";
 import HeaderNavigationBase from "@/components/navigation";
 import { dbConnectionStatus } from "@/lib/connection-status";
 import { Badge } from "@/components/ui/badge";
+import toast from "react-hot-toast";
 
 export default async function RootLayout({
   children,
@@ -18,9 +20,10 @@ export default async function RootLayout({
         <HeaderNavigationBase dbStatus={dbStatus} />
 
         <main className="min-h-screen">
+          <Toaster  />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
-        <Toaster />
+        
       </body>
     </html>
   );

@@ -5,12 +5,14 @@ import { Dropdown } from "primereact/dropdown";
 import { submitPost } from "@/lib/actions";
 import * as leoProfanity from "leo-profanity";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 leoProfanity.loadDictionary();  
  
 export default function Page({ searchParams }: { searchParams?: Record<string, string | undefined> }) {
   const [profData, setProfData] = useState<any>(null);
   const [teachers, setTeachers] = useState<any[]>([]);
+  const router = useRouter();
   const rating = [
     { name: 10 },
     { name: 9 },
@@ -24,7 +26,7 @@ export default function Page({ searchParams }: { searchParams?: Record<string, s
     { name: 1 },
   ];
   const params = useParams() as { prof?: string } | undefined;
-  const encoded = searchParams?.prof ?? "e30=";
+  const encoded = React.use(searchParams)?.prof ?? "e30=";
 
   const selectedTeacherTemplate = (option: any, props: any) => {
     if (option) {
@@ -59,17 +61,21 @@ export default function Page({ searchParams }: { searchParams?: Record<string, s
   const [correctionRating, setCorrectionRating] = useState<{name: number}>({name:0});
   const [daRating, setDaRating] = useState<{name: number}>({name:0});
   const [remarkRating, setRemarkRating] = useState<string>("");
-  const [color, setColor] = useState<string>("bg-green-500");
+  const [color, setColor] = useState<string>("bg-red-500");
  
   
 function submitReview() {
     console.log(selectedTeacher)
+    const loading = toast.loading('sending review...');
+
 if (!selectedTeacher.name){
+  toast.dismiss(loading);
   toast.error("Please select a teacher to review.");
   return;
 
 } 
 if (teachingRating.name==0 || leniencyRating.name==0 || correctionRating.name==0 || daRating.name==0){
+  toast.dismiss(loading);
   toast.error("Please provide all ratings before submitting the review.");
   return;
 }
@@ -84,12 +90,19 @@ const formData = new FormData();
       formData.append("remarks", cleaned);
 submitPost(formData)
     .then(() => {
+        toast.dismiss(loading);
         toast.success("Review submitted successfully!");
     })
     .catch((error) => {
-        try{toast.error(JSON.parse(error.message)[0].message)}
+        try{
+          toast.dismiss(loading);
+          toast.error(JSON.parse(error.message)[0].message)}
         catch{
+          toast.dismiss(loading);
         toast.error("Error submitting review: " + (error instanceof Error ? error.message : "Unknown error"));
+        if(error.message=='Unauthorized' ){
+          router.push("/login");
+        }
         }
         return;
     });
@@ -188,8 +201,8 @@ submitPost(formData)
             </div>
 
             <div className="mt-4">
-              <div className="font-semibold font-secondary mb-2">Remarks</div>
-              <textarea onChange={(e) => { setRemarkRating(e.target.value) }} placeholder="Write your review" className="w-full p-3 border rounded-md resize-vertical" rows={4}></textarea>
+              <div className="font-semibold   mb-2">Remarks</div>
+              <textarea onChange={(e) => { setRemarkRating(e.target.value) }} placeholder="Write your review" className="w-full p-3 border rounded-md resize-vertical text-black"  rows={4}></textarea>
             </div>
 
             <div className="flex justify-end mt-4">

@@ -7,9 +7,12 @@ import { AuthForm } from "@/components/auth-form"
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted py-8 px-4">
-      <div className="w-full max-w-md sm:max-w-lg">
-        <Link href="/" className="flex items-center gap-2 self-center font-medium">
+    <div className="min-h-screen flex items-center justify-center bg-muted py-8 px-4 gap-4">
+      <div className="w-full max-w-md sm:max-w-lg gap-4">
+        
+        <AuthForm mode="login" />
+        <div className="flex gap-3">
+        Powered Using <Link href="/" className="flex inline items-center gap-2 self-center font-medium">
           <Image
             className="h-6 w-auto dark:hidden"
             src={logo}
@@ -26,8 +29,7 @@ export default function LoginPage() {
             height={24}
             priority
           />
-        </Link>
-        <AuthForm mode="login" />
+        </Link></div>
       </div>
     </div>
   )
