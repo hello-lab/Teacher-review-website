@@ -11,7 +11,7 @@ export default function Layout({ dbStatus }: { dbStatus?: string }) {
     const [hidden,setHidden]=useState(true);
     const [mobileMenuOpen,setMobileMenuOpen]=useState(false);
     const { data: session, isPending } = authClient.useSession();   
-let items=[
+const items=[
             {
                 label: "Teachers",
                 href: "/teachers",

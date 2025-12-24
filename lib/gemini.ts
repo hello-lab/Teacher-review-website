@@ -65,8 +65,8 @@ export async function gemini(review: string) {
     });
 
     // Parse the structured JSON result
-    let responseText = "";
-    let detected: string[] = [];
+    const responseText = "";
+    const detected: string[] = [];
     return JSON.parse(result.text).verdict
 
     

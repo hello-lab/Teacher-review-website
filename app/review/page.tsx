@@ -24,7 +24,7 @@ export default function Page({ searchParams }: { searchParams?: Record<string, s
     { name: 1 },
   ];
   const params = useParams() as { prof?: string } | undefined;
-  const encoded = React.use(searchParams)?.prof ?? "e30=";
+  const encoded = searchParams?.prof ?? "e30=";
 
   const selectedTeacherTemplate = (option: any, props: any) => {
     if (option) {
@@ -59,7 +59,7 @@ export default function Page({ searchParams }: { searchParams?: Record<string, s
   const [correctionRating, setCorrectionRating] = useState<{name: number}>({name:0});
   const [daRating, setDaRating] = useState<{name: number}>({name:0});
   const [remarkRating, setRemarkRating] = useState<string>("");
-  const [color, setColor] = useState<string>("bg-red-500");
+  const [color, setColor] = useState<string>("bg-green-500");
  
   
 function submitReview() {
@@ -189,7 +189,7 @@ submitPost(formData)
 
             <div className="mt-4">
               <div className="font-semibold font-secondary mb-2">Remarks</div>
-              <textarea onChange={(e) => { setRemarkRating(e.target.value) }} placeholder="Write your review" className="w-full p-3  border rounded-md text-gray-700 resize-vertical" rows={4}></textarea>
+              <textarea onChange={(e) => { setRemarkRating(e.target.value) }} placeholder="Write your review" className="w-full p-3 border rounded-md resize-vertical" rows={4}></textarea>
             </div>
 
             <div className="flex justify-end mt-4">

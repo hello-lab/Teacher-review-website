@@ -23,16 +23,16 @@ const createRange = (start=0, end:number, step = 1) => {
 
 function levenshtein(s1: string, s2: string): number {
    if (s1 === s2) return 0;
-   let rows = s1.length + 1;
-    let cols = s2.length + 1;
+   const rows = s1.length + 1;
+    const cols = s2.length + 1;
 
     let previous_row = createRange(0, cols );
     for (let i = 0; i < s1.length; i++) {
-        let current_row = [i + 1];
+        const current_row = [i + 1];
         for (let j =0;j< s2.length;j++) {
-          let insert_cost = previous_row[j + 1] + 1;
-          let delete_cost = current_row[j] + 1;
-          let replace_cost = previous_row[j] + (s1[i] === s2[j] ? 0 : 1);
+          const insert_cost = previous_row[j + 1] + 1;
+          const delete_cost = current_row[j] + 1;
+          const replace_cost = previous_row[j] + (s1[i] === s2[j] ? 0 : 1);
           current_row.push(Math.min(insert_cost, delete_cost, replace_cost));
         }
         previous_row = current_row;
@@ -44,7 +44,7 @@ function search(query: string) {
 
   const queryTokens = query.toLowerCase().split(" ");
   if (!queryTokens.length) return tichers;
-  let scored_results=[];
+  const scored_results=[];
   for (let i = 0; i < teach.length; i++) {
     const record_tokens = teach[i].tokens;
     let total_score = 0;
@@ -63,9 +63,9 @@ function search(query: string) {
         }
         else {
           if (Math.abs(queryTokens[j].length - record_tokens[k].length) <=2) {
-            let dist = levenshtein(queryTokens[j], record_tokens[k]);
+            const dist = levenshtein(queryTokens[j], record_tokens[k]);
             if (dist<=2){
-              let score= 80-(dist*20)
+              const score= 80-(dist*20)
               if (score>best_token_score){
                 best_token_score=score
               }
@@ -80,7 +80,7 @@ function search(query: string) {
       }
 }
 if (matches_count>0){
-  let final_score = total_score / queryTokens.length;
+  const final_score = total_score / queryTokens.length;
   if (final_score>50){
     scored_results.push({original:teach[i].original, score:final_score})
   }
@@ -92,7 +92,7 @@ if (matches_count>0){
 useEffect( () => {
 getTeachers(page, 1000).then((data:any) => {
   setallteachers(data.posts)
-let teaach: {original:string,tokens:string[]}[] = []
+const teaach: {original:string,tokens:string[]}[] = []
   for (let i = 0; i < data.posts.length; i++) {
     teaach.push({original:(data.posts[i].name),tokens: data.posts[i].name.toLowerCase().split(" ")})
   }
