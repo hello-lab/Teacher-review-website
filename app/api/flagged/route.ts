@@ -28,8 +28,12 @@ export async function POST(req: Request) {
       formData.append("correction", data.correction);
       formData.append("daQuiz", data.daQuiz);
       formData.append("remarks", data.remarks);
+      if(data.pwd == process.env.ADMIN_PWD ){
         const teachers = await submitPost(formData);
-        return new Response(JSON.stringify( { success: true } ), { status: 200 });
+        return new Response(JSON.stringify( { success: true } ), { status: 200 });}
+        else
+                    return new Response(JSON.stringify({ success: false, error: error?.message ?? String(error) }), { status: 500 });
+
     } catch (error: any) {
         return new Response(JSON.stringify({ success: false, error: error?.message ?? String(error) }), { status: 500 });
     }
